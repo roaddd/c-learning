@@ -73,8 +73,10 @@ void test03() {
 	}
 }
 int main() {
-	test01();
-	test02();
-	test03();
+	//test01();
+	//test02();
+	//test03();
+	char arr[] = "abcdef";
+	printf("%d\n", strlen(arr));
 	return 0;
 }
