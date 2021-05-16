@@ -1,6 +1,6 @@
 ﻿#include <stdio.h>
 #include <assert.h>
-//模拟实现库函数strcpy
+//模拟实现库函数 :strcpy
 char* my_strcpy(char* dst, const char* src) {
 	char* cp = dst;
 	assert(dst && src);
