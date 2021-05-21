@@ -8,7 +8,7 @@ int my_strlen(const char* str) {
 		return 1 + my_strlen(str + 1);
 }
 //²âÊÔ
-int main() {
+int main1() {
 	char arr[] = "abcdefg";
 	printf("%d\n", my_strlen(arr));
 	return 0;
