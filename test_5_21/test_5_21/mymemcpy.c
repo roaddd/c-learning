@@ -4,6 +4,7 @@
 #include<assert.h>
 struct stu {
 	char name[20];
+
 	int age;
 };
 void* memcpy(void* dest, const void* src, size_t count) {
