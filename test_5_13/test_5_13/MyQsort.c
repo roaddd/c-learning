@@ -4,11 +4,11 @@ struct stu {
 	char name[20];
 	int age;
 };
-//比较整形
+// 比较整形
 int int_cmp(const int* p1, const int* p2) {
 	return *p1 - *p2;
 }
-//比较浮点型
+// 比较浮点型
 int float_cmp(const float* p1, const float* p2) {
 	if (*p1 > *p2) {
 		return 1;
@@ -72,7 +72,7 @@ void test03() {
 		printf(" %d\n", s[i].age);
 	}
 }
-int main() {
+int main1() {
 	//test01();
 	//test02();
 	//test03();
