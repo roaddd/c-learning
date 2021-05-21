@@ -1,3 +1,0 @@
-﻿  strcpy.c
-D:\C++\VS项目\test_5_10\test_5_10\strcpy.c(19,8): warning C4013: “system”未定义；假设外部返回 int
-  test_5_10.vcxproj -> D:\C++\VS项目\test_5_10\Debug\test_5_10.exe
