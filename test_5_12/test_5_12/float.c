@@ -1,5 +1,6 @@
 #include<stdio.h>
 int main(){
+
 	int n = 9;
 	float* pFloat = (float*)&n;
 	printf("nµÄÖµÎª£º%d\n", n);
