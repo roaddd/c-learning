@@ -1,6 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 #include<stdio.h>
-
 //利用函数指针数组实现简易计算器
 int add(int a, int b) {
 	return a + b;
