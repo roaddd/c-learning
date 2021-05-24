@@ -4,7 +4,6 @@
 #include <vector>
 #include <iostream>
 using namespace std;
-
 class Window_mgr {
 public:
 	//´°¿ÚÆÁÄ»µÄ±àºÅ
