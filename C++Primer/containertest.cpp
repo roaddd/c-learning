@@ -4,6 +4,7 @@
 #include <list>
 #include <deque>
 #include <forward_list>
+#include <fstream>
 using namespace std;
 vector<int>::iterator find(vector<int>::iterator begin, vector<int>::iterator end, int c) {
 	for (begin; begin != end; begin++) {
@@ -202,6 +203,183 @@ void test11(forward_list<string>& flst, string s1, string s2) {
 		cout << *iter3 << endl;
 		iter3++;
 	}
+
+}
+//题9.31
+void test12() {
+	//对于list
+	list<int> lis = { 0,1,2,3,4,5,6,7,8,9 };
+	auto iter = lis.begin();
+	while (iter != lis.end()) {
+		if (*iter % 2) {
+			lis.insert(iter, *iter);
+			(iter++)++;
+		}
+		else {
+			iter = lis.erase(iter);
+		}
+	}
+	auto iter1 = lis.begin();
+	while (iter1 != lis.end()) {
+		cout << *iter1 << endl;
+		iter1++;
+	}
+	cout << "----------分割线---------" << endl;
+	//对于forward_list
+	forward_list<int>fls = { 0,1,2,3,4,5,6,7,8,9 };
+	auto prev = fls.before_begin();
+	auto curr = fls.begin();
+	while (curr != fls.end()) {
+		if (*curr % 2) {
+			fls.insert_after(prev, *curr);
+			prev = curr;
+			curr++;
+		}
+		else {
+			curr = fls.erase_after(prev);
+		}
+	}
+	auto iter2 = fls.begin();
+	while (iter2 != fls.end()) {
+		cout << *iter2 << endl;
+		iter2++;
+	}
+}
+//题9.33(程序崩溃)
+void test13() {
+	vector<int>vi = { 0,1,2,3,4,5,6,7,8,9 };
+	auto iter = vi.begin();
+	while (iter != vi.end()) {
+		++iter;
+		vi.insert(iter, 42);
+		++iter;
+	}
+	auto iter2 = vi.begin();
+	while (iter2 != vi.end()) {
+		cout << *iter2 << endl;
+	}
+}
+//题9.34
+void test14() {
+	vector<int>vec = { 0,1,2,3,4,5,6,7,8,9 };
+	auto iter1 = vec.begin();
+	while (iter1 != vec.end()) {
+		if (*iter1 % 2) {
+			iter1 = vec.insert(iter1, *iter1);
+			iter1 += 2;
+		}
+		else {
+			iter1++;
+		}
+	}
+	auto iter2 = vec.begin();
+	while (iter2 != vec.end()) {
+		cout << *iter2 << endl;
+		iter2++;
+	}
+}
+//题9.41
+void test15() {
+	vector<char>vec = { 'a','b','c','d' };
+	string s(vec.begin(), vec.end());
+	cout << s << endl;
+}
+//题9.43
+void test16(string& s, const string& oldVal, const string& newVal) {
+	auto iter1 = s.begin();
+	for (iter1; iter1 != s.end(); iter1++) {
+		auto iter3 = iter1;
+		auto iter2 = oldVal.begin();
+		for (iter2; iter2 != oldVal.end(); iter2++) {
+			if (*iter2 != *iter1) {
+				break;
+			}
+			iter1++;
+		}
+		if (iter2 == oldVal.end()) {//判断是否存在与oldVal相等值
+			iter1 = s.erase(iter3, iter1);
+			iter1 = s.insert(iter1, newVal.begin(), newVal.end());
+			iter1 += (newVal.size() - 1);
+		}
+	}
+	cout << s << endl;
+}
+//重写9.43，使用一个下标和replace
+void test17(string& s, const string& oldVal, const string& newVal) {
+	for (string::size_type i = 0; i < s.size(); i++) {
+		if (s.substr(i, oldVal.size()) == oldVal) {
+			s.replace(i, oldVal.size(), newVal);
+			i += (newVal.size() - 1);
+		}
+	}
+	cout << s << endl;
+}
+//题9.45
+void test18(string& name, const string& s1, const string& s2) {
+	auto iter1 = name.begin();
+	name.append(s2);
+	name.insert(iter1, s1.begin(), s1.end());
+	cout << name << endl;
+}
+//重写题9.45只使用insert
+void test19(string& name, const string& s1, const string& s2) {
+	auto iter1 = name.begin();
+	name.insert(iter1, s1.begin(), s1.end());
+	name.insert(name.size(), s2);
+	cout << name << endl;
+}
+//题9.47
+void test20() {
+	string s = "ab2c3d7R4E6";
+	string numbers("0123456789");
+	string::size_type pos = 0;
+	while ((pos = s.find_first_of(numbers, pos))
+		!= string::npos) {
+		cout << "found number at index:" << pos << " element is " << s[pos] << endl;
+		++pos;
+	}
+	pos = 0;
+	while ((pos = s.find_first_not_of(numbers, pos))
+		!= string::npos) {
+		cout << "found character at index:" << pos << " element is " << s[pos] << endl;
+		++pos;
+	}
+}
+//题9.49
+void test21() {
+	string s("bdfghijklpqty");//包含上出头和下出头字母
+	vector<string>vec;
+	string s1;
+	string ifile = "单词.txt";
+	ifstream in(ifile);
+
+	while (in >> s1) {
+		int i = 0;
+		string::size_type pos = 0;
+		while ((pos = s1.find_first_not_of(s, pos))
+			!= string::npos) {
+			++i;
+			++pos;
+		}
+		if (i == s1.size()) {
+			vec.push_back(s1);
+		}
+	}
+	//冒泡排序，找出不包含上下头的最长的单词
+	if (!vec.empty()) {
+		for (int i = 0; i < vec.size() - 1; i++) {
+			for (int j = 0; j < vec.size() - 1 - i; j++) {
+				if (vec[j].size() < vec[j + 1].size()) {
+					swap(vec[j], vec[j + 1]);
+				}
+			}
+		}
+
+		cout << vec[0] << endl;
+	}
+	else {
+		cout << "没有符合要求的单词" << endl;
+	}
 }
 int main() {
 	//test01();
@@ -215,6 +393,16 @@ int main() {
 	//test09();
 	//test10();
 	forward_list<string>list1 = { "cas","abc","jim","bub","vyv" };
-	test11(list1, "jim", "nnn");
+	//test11(list1, "jim", "nnn");
+	//test12();
+	//test13();
+	//test14();
+	//test15();
+	string s1 = "autiguhauthght";
+	//test17(s1,"au","hh");
+	string name = "Tom";
+	//test19(name,"Mr.","Jr.");
+	//test20();
+	test21();
 	return 0;
 }
