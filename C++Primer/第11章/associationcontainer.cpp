@@ -1,4 +1,5 @@
 #include <map>
+#include <unordered_map>
 #include <string>
 #include <iostream>
 #include <cctype>
@@ -77,7 +78,7 @@ void test03()
 //练习11.9
 void test04()
 {
-	map<string, list<int>>record;
+	unordered_map<string, list<int>>record;
 	ifstream in("单词.txt");
 	string lword, word;
 	if (!in)cout << "绑定文件失败" << endl;
