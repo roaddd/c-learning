@@ -9,13 +9,19 @@ class Message
 public:
 	explicit Message(const string& str = ""):
 		contents(str){}
+
 	Message(const Message&);
+	Message(Message&& m)noexcept;
+
 	Message& operator=(const Message&);
+	Message& operator=(Message&& rhs)noexcept;
+	
 	~Message();
 	void save(Folder& f);
 	void remove(Folder&f);
 	void swap(Message& lhs, Message& rhs);
 	void print_debug();
+	void move_Folders(Message* m);
 private:
 	string contents;
 	set<Folder*>folders;

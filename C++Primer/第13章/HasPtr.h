@@ -10,6 +10,18 @@ public:
 	HasPtr(const string &s=string()):ps(new string(s)),i(0){}
 	HasPtr(const HasPtr& hp) :ps(new string(*hp.ps)), i(hp.i) {}
 	HasPtr& operator=(const HasPtr& rhs_hp);
+	/*HasPtr& operator=(HasPtr rhs)
+	{
+		swap(*this, rhs);
+		return *this;
+	}*/
+	HasPtr operator=(HasPtr&& rhs)noexcept
+	{
+		swap(*this, rhs);
+		rhs.ps = nullptr;
+		rhs.i = 0;
+		return *this;
+	}
 	void show()const;
 	~HasPtr()
 	{
