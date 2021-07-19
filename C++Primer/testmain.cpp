@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Person.h"
 using namespace std;
+
 void testPerson() {
 	Person p1("张三", "北京");
 	p1.show_info();

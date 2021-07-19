@@ -5,6 +5,7 @@ class Bulk_quote :public Disc_quote
 {
 public:
 	Bulk_quote() = default;
+<<<<<<< HEAD
 	/*Bulk_quote(const string&b,double p,size_t q,double disc):
 		Disc_quote(b,p,q,disc){}*/
 	using Disc_quote::Disc_quote;
@@ -46,6 +47,13 @@ public:
 	{
 		cout << "destructoing Bulk_quote\n";
 	}
+=======
+	Bulk_quote(const string&b,double p,size_t q,double disc):
+		Disc_quote(b,p,q,disc){}
+
+	double net_price(size_t n)const override;
+	void debug()const override;
+>>>>>>> ee7b8231da2ac9601ecd76991b576f910fad84ae
 };
 #endif // !BULK_QUOTE_H
 
