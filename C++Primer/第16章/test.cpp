@@ -4,6 +4,9 @@
 #include <list>
 #include "blobptr.h"
 #include "Screen.h"
+#include "vec.h"
+#include "DebugDelete.h"
+#include "shared_pointer.hpp"
 using namespace std;
 
 //Á·Ï°16.4
@@ -48,6 +51,55 @@ void test01()
 	cin >> scr2;
 	cout << scr2;
 }
+//Á·Ï°16.16
+void test02()
+{
+	Vec<int>v = { 1,2,3,4,5 };
+	Vec<int>v2;
+	v2 = v;
+	cout << v2.capacity() << endl;
+	v2.push_back(99);
+	v2.resize(2, 2);
+	for (auto i : v2)
+		cout << i << endl;
+	cout << v2.capacity() << endl;
+}
+//Á·Ï°16.19
+template<typename T>
+void test03(T&t)
+{
+	typedef T::size_type size_type;
+	for (size_type i = 0; i != t.size(); ++i)
+		cout << t[i] << endl;
+}
+//Á·Ï°16.20
+template<typename T>
+void test04(T&t)
+{
+	auto beg = t.begin();
+	while (beg != t.end())
+		cout << *beg++ << endl;
+}
+//Á·Ï°16.21
+void test05()
+{
+	double *p = new double;
+	DebugDelete d;
+	d(p);
+
+	//unique_ptr<int, DebugDelete>p(new int, DebugDelete());
+}
+//Á·Ï°16.28
+void test06()
+{
+	auto foo = cp5::SharedPointer<int>{ new int(42) };
+	auto bar(foo);
+	cout << *foo << endl;
+	cout << foo.use_count() << endl;
+
+
+	
+}
 
 int main()
 {
@@ -76,7 +128,12 @@ int main()
 	char c[] = "s";
 	cout << getSize(c) << endl;*/
 
-	test01();
-
+	//test01();
+	//test02();
+	vector<int>vec = { 1,2,3,4 };
+	//test03(vec);
+	//test04(vec);
+	//test05();
+	test06();
 	return 0;
 }
